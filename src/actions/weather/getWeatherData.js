@@ -1,6 +1,21 @@
+import { weatherUrl } from "../../constants.js";
+
 const getWeatherData = async (city, key) => {
-    const encodedCity = encodeURIComponent(city);
-    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${encodedCity}&units=metric&lang=ua&appid=${key}`;
+    // const encodedCity = encodeURIComponent(city);
+    
+    const urlParams = {
+        q: city,
+        units: 'metric',
+        lang: 'ua',
+        appid: key
+    }
+
+    let url = new URL(weatherUrl);
+    
+    Object.keys(urlParams).forEach(param => {
+        url.searchParams.append(param, urlParams[param])
+    });
+    console.log(url)
 
     try {
         const response = await fetch(url);
@@ -23,6 +38,5 @@ const getWeatherData = async (city, key) => {
         return null;
     }
 };
-
 
 export default getWeatherData;

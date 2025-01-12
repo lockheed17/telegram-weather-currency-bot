@@ -9,10 +9,13 @@ const getCurrencyRate = async (currency) => {
         }
 
         const data = await response.json();
-
         const currencyData = data.find(item => item.ccy === currency);
+
         if (currencyData) {
-            return `Курс ${currencyData.ccy} до ${currencyData.base_ccy}: Купівля ${currencyData.buy}, Продаж ${currencyData.sale}`;
+            const currencyBuy = Number(currencyData.buy).toFixed(2);
+            const currencySale = Number(currencyData.sale).toFixed(2);
+
+            return `Курс ${currencyData.ccy} до ${currencyData.base_ccy}: \nКупівля ${currencyBuy} \nПродаж ${currencySale}`;
         } else {
             return `Курс для валюти ${currency} не знайдено.`;
         }
@@ -21,6 +24,5 @@ const getCurrencyRate = async (currency) => {
         return 'Неможливо отримати курс на даний момент';
     }
 };
-
 
 export default getCurrencyRate;

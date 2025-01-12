@@ -17,9 +17,9 @@ const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 const key = process.env.API_KEY;
 
-let userStates = {}; // зберігання стану юзера по chatId
+let userStates = {}; // storing user state by chatId
 
-// // шаблон для хендлерів
+// handler template
 const baseHandler = {
     "Попереднє меню": (msg, bot) => {
         const chatId = msg.chat.id;
@@ -29,7 +29,7 @@ const baseHandler = {
     }
 };
 
-// робота з курсом валют
+// currency
 const currencyHandlers = { ...baseHandler, ...(await createCurrencyHandlers(bot)) };
 
 const handleCurrencySelection = async (msg, bot) => {
@@ -43,7 +43,7 @@ const handleCurrencySelection = async (msg, bot) => {
     }
 };
 
-// робота з погодою
+// weather
 const weatherHandlers = {
     ...baseHandler,
     'Кожні 3 години': async (msg, bot, weatherData, city) => {
@@ -100,7 +100,7 @@ bot.on('message', async (msg) => {
             break;
 
         case 'city_input':
-            // перевірка існування міста
+            // checking the existence of a city
             const city = text;
             const weatherData = await getWeatherData(city, key);
             if (weatherData) {
