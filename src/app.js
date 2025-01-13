@@ -9,6 +9,8 @@ import getWeatherData from './actions/weather/getWeatherData.js';
 
 import { KEYBOARD_COMMAND_CURRENCY, KEYBOARD_COMMAND_WEATHER } from './constants.js';
 
+import './server.js';
+
 // fix DeprecationWarning
 process.env["NTBA_FIX_350"] = 1;
 

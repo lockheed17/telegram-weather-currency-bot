@@ -15,7 +15,6 @@ const getWeatherData = async (city, key) => {
     Object.keys(urlParams).forEach(param => {
         url.searchParams.append(param, urlParams[param])
     });
-    console.log(url)
 
     try {
         const response = await fetch(url);
